@@ -15,6 +15,9 @@ fi
 cp .ssh/config .ssh/config_bakup
 scp root@bastion.chivier.site:.ssh/config .ssh/config
 
+# Basic things
+sudo apt install vim
+sudo apt install ccls
 
 # GNU Compilers
 sudo apt install gcc-10 g++-10 gcc-9 g++-9 gcc-8 g++-8 gdb
@@ -47,8 +50,9 @@ if [[ ! -e $HOME/opt/oneapi ]]; then
     scp -r bastion:share/tools/oneapi $HOME/opt
 fi
 
-
 # Install LLVM
+if [[ ! -e $HOME/opt/llvm ]]; then
+fi
 
 # Install OneAPI
 
