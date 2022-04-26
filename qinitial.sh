@@ -156,3 +156,16 @@ fi
 
 cp zshrc ../.zshrc
 
+cd
+sudo chown -R chivier .oh-my-zsh
+sudo chown -R chivier .zinit
+sudo chown -R chivier .zshrc
+
+cd
+cd .oh-my-zsh/custom/plugins
+rm -rf zenplash
+git clone https://github.com/Chivier/zenplash.git
+
+cd
+mkdir Projects
+
