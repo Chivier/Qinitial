@@ -157,9 +157,9 @@ fi
 cp zshrc ../.zshrc
 
 cd
-sudo chown -R chivier .oh-my-zsh
-sudo chown -R chivier .zinit
-sudo chown -R chivier .zshrc
+sudo chown -R $USER .oh-my-zsh
+sudo chown -R $USER .zinit
+sudo chown -R $USER .zshrc
 
 cd
 cd .oh-my-zsh/custom/plugins
