@@ -96,6 +96,7 @@ sudo apt install -y python3.9
 if [[ ! -e $HOME/.pyenv ]]; then
     git clone https://github.com/pyenv/pyenv.git ~/.pyenv
     cd ~/.pyenv && src/configure && make -C src
+    git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
 fi
 
 # MPICH
