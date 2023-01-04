@@ -100,7 +100,6 @@ bindkey "^[OQ" edit-command-line
 export EDITOR=/usr/bin/vim
 
 # Pyenv
-git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
 export PATH="$HOME/.pyenv/bin:$PATH"
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH=$PYENV_ROOT/shims:$PATH
