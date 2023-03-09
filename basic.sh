@@ -30,17 +30,8 @@ if [[ ! -e $HOME/.pyenv ]]; then
     cd ~/.pyenv && src/configure && make -C src
 fi
 
-# MPICH
-if [[ ! -e $HOME/opt/mpich ]]; then
-    cd $HOME/opt
-    mkdir mpich
-    cd mpich
-    wget https://www.mpich.org/static/downloads/4.0.2/mpich-4.0.2.tar.gz
-    tar xf mpich-4.0.2.tar.gz
-    cd mpich-4.0.2
-    ./configure --prefix=$HOME/opt/mpich/chver
-    make -j4
-    sudo make install
+if [[ ! -e $HOME/opt ]]; then
+    mkdir -p $HOME/opt
 fi
 
 # Bookmarks
@@ -63,6 +54,19 @@ if [[ ! -e $HOME/.vim_runtime ]]; then
     git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
     sh ~/.vim_runtime/install_basic_vimrc.sh
 fi
+
+# nvim
+if [[ ! -e $HOME/.config/nvim ]]; then
+    mv $HOME/.config/nvim $HOME/.config/nvim_backup
+fi
+cd $HOME/opt
+wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
+tar xf nvim-linux64.tar.gz
+cd nvim-linux64
+sudo rsync -avhu bin/* /usr/local/bin/
+sudo rsync -avhu lib/* /usr/local/lib/
+sudo rsync -avhu share/* /usr/local/share/
+git clone https://github.com/LazyVim/starter ~/.config/nvim
 
 # tmux
 cd
