@@ -79,18 +79,20 @@ cd $QINDIR
 tar xf zsh.tar
 
 if [[ ! -e $HOME/.oh-my-zsh ]]; then
-    mv .oh-my-zsh ..
+    mv .oh-my-zsh $HOME
 else
     rm -rf .oh-my-zsh
+    mv .oh-my-zsh $HOME
 fi
 
 if [[ ! -e $HOME/.zinit ]]; then
-    mv .zinit ..
+    mv .zinit $HOME
 else
     rm -rf .zinit
+    mv .zinit $HOME
 fi
 
-cp zshrc ../.zshrc
+cp zshrc $HOME/.zshrc
 
 cd
 sudo chown -R $USER .oh-my-zsh
