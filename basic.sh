@@ -26,8 +26,7 @@ fi
 
 # Pyenv
 if [[ ! -e $HOME/.pyenv ]]; then
-    git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-    cd ~/.pyenv && src/configure && make -C src
+    curl https://pyenv.run | bash
 fi
 
 if [[ ! -e $HOME/opt ]]; then
