@@ -15,11 +15,8 @@ export LC_ALL="en_US.utf8"
 # local env variables
 # THEME
 ZSH_THEME="chivier"
-plugins=(git colored-man-pages vi-mode zshmarks zenplash)
+plugins=(git colored-man-pages vi-mode zshmarks zenplash docker docker-compose)
 source $ZSH/oh-my-zsh.sh
-
-# Intel Compilers
-alias sourceintel='source /opt/intel/oneapi/setvars.sh'
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
@@ -72,27 +69,6 @@ zinit light-mode for \
 #Frequently used files or folders
 alias lll="cd ~/Projects"
 
-# Quick Update & Upgrade
-alias update="sudo apt update"
-alias upgrade="sudo apt-get upgrade"
-alias upug="update && upgrade"
-
-# Better color theme
-# Aliases
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-alias diff='diff --color=auto'
-# Man Pages
-export LESS_TERMCAP_mb=$'\e[1;32m'
-export LESS_TERMCAP_md=$'\e[1;32m'
-export LESS_TERMCAP_me=$'\e[0m'
-export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_so=$'\e[01;33m'
-export LESS_TERMCAP_ue=$'\e[0m'
-export LESS_TERMCAP_us=$'\e[1;4;31m'
-
 # Vim mode
 autoload -z edit-command-line
 zle -N edit-command-line
@@ -106,23 +82,4 @@ export PATH=$PYENV_ROOT/shims:$PATH
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-# Cmake
-export PATH="$HOME/opt/cmake/chver/bin:$PATH"
-
-# LLVM
-export PATH="$HOME/opt/llvm/chver/bin:$PATH"
-export LD_LIBRARY_PATH="$HOME/opt/llvm/chver/lib:$LD_LIBRARY_PATH"
-export LLVM_INCLUDE_PATH="$HOME/opt/llvm/chver/include"
-
-# FZF
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Lazygit
-alias lg="lazygit"
-
-# ShowMarks
-alias g="jump"
-# alias s="bookmark"
-# alias d="deletemark"
-alias p="showmarks"
 
