@@ -12,11 +12,6 @@ else
 	cat $HOME/.ssh/id_rsa.pub
 fi
 
-# Rust
-if [[ ! -e $HOME/.cargo ]]; then
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-fi
-
 # Pyenv
 if [[ ! -e $HOME/.pyenv ]]; then
 	curl https://pyenv.run | bash
