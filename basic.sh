@@ -38,7 +38,7 @@ cd nvim-linux64
 rsync -avhu bin/* $HOME/.local/bin/
 rsync -avhu lib/* $HOME/.local/lib/
 rsync -avhu share/* $HOME/.local/share/
-git clone https://github.com/LazyVim/starter ~/.config/nvim
+git clone https://github.com/Chivier/ChivierLazyNvim.git ~/.config/nvim
 
 # tmux
 cd
