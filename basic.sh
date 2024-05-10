@@ -12,6 +12,20 @@ else
 	cat $HOME/.ssh/id_rsa.pub
 fi
 
+if [[ ! -e $HOME/.local ]]; then
+	mkdir -p $HOME/.local
+fi
+
+if [[ ! -e $HOME/.local/bin ]]; then
+	mkdir -p $HOME/.local/bin
+fi
+if [[ ! -e $HOME/.local/lib ]]; then
+	mkdir -p $HOME/.local/lib
+fi
+if [[ ! -e $HOME/.local/share ]]; then
+	mkdir -p $HOME/.local/share
+fi
+
 # Pyenv
 if [[ ! -e $HOME/.pyenv ]]; then
 	curl https://pyenv.run | bash
