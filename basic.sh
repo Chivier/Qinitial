@@ -62,23 +62,20 @@ cp .tmux/.tmux.conf.local .
 
 # zsh
 cd $QINDIR
-tar xf zsh.tar
+
+tar xzvf zsh.tar.gz
 
 if [[ ! -e $HOME/.oh-my-zsh ]]; then
-	mv .oh-my-zsh $HOME
-else
-	rm -rf .oh-my-zsh
 	mv .oh-my-zsh $HOME
 fi
 
 if [[ ! -e $HOME/.zinit ]]; then
 	mv .zinit $HOME
-else
-	rm -rf .zinit
-	mv .zinit $HOME
 fi
 
-cp zshrc $HOME/.zshrc
+if [[ ! -e $HOME/.zshrc ]]; then
+	cp zshrc $HOME/.zshrc
+fi
 
 cd
 chown -R $USER .oh-my-zsh
@@ -95,7 +92,13 @@ cd
 mkdir Projects
 
 # zellij
-bash <(curl -L zellij.dev/launch)
+if [[ ! -e $HOME/.local/bin/zellij ]]; then
+	wget https://github.com/zellij-org/zellij/releases/download/v0.40.1/zellij-x86_64-unknown-linux-musl.tar.gz
+	tar xzvf zellij-x86_64-unknown-linux-musl.tar.gz
+	chmod +x ./zellij
+	mv zellij $HOME/.local/bin/zellij
+	rm zellij-x86_64-unknown-linux-musl.tar.gz
+fi
 
 # lazygit
 if [[ ! -e $HOME/.local/bin/lg ]]; then
