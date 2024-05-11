@@ -2,15 +2,15 @@
 
 QINDIR=$(pwd)
 # SSH prepare
-if [[ -e $HOME/.ssh/id_rsa && -e $HOME/.ssh/id_rsa.pub ]]; then
-	echo "Copy public key"
-	cat $HOME/.ssh/id_rsa.pub
-else
-	echo "Generating public key"
-	ssh-keygen
-	echo "Copy public key"
-	cat $HOME/.ssh/id_rsa.pub
-fi
+# if [[ -e $HOME/.ssh/id_rsa && -e $HOME/.ssh/id_rsa.pub ]]; then
+# 	echo "Copy public key"
+# 	cat $HOME/.ssh/id_rsa.pub
+# else
+# 	echo "Generating public key"
+# 	ssh-keygen
+# 	echo "Copy public key"
+# 	cat $HOME/.ssh/id_rsa.pub
+# fi
 
 if [[ ! -e $HOME/.local ]]; then
 	mkdir -p $HOME/.local
@@ -90,5 +90,28 @@ cd .oh-my-zsh/custom/plugins
 rm -rf zenplash
 git clone https://github.com/Chivier/zenplash.git
 
+# Projects
 cd
 mkdir Projects
+
+# zellij
+bash <(curl -L zellij.dev/launch)
+
+# lazygit
+if [[ ! -e $HOME/.local/bin/lg ]]; then
+	LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+	curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+	tar xf lazygit.tar.gz lazygit
+	mv lazygit $HOME/.local/bin/lg
+	rm lazygit
+fi
+
+if [[ ! -e $HOME/.local/bin/fd ]]; then
+	ln -s $(which fdfind) ~/.local/bin/fd
+fi
+if [[ ! -e $HOME/.local/bin/bat ]]; then
+	ln -s /usr/bin/batcat ~/.local/bin/bat
+fi
+if [[ ! -e $HOME/.local/bin/lg ]]; then
+	ln -s $(which lazygit) ~/.local/bin/lg
+fi
