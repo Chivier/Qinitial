@@ -224,20 +224,36 @@ info "Claude Code installed"
 
 # ── NPM Global Packages ──────────────────────────────────────────────────────
 step "OpenAI Codex CLI"
-npm install -g @openai/codex
-info "OpenAI Codex installed"
+if npm list -g @openai/codex --depth=0 &>/dev/null; then
+    warn "OpenAI Codex already installed, skipping"
+else
+    npm install -g @openai/codex
+    info "OpenAI Codex installed"
+fi
 
 step "Google Gemini CLI"
-npm install -g @google/gemini-cli
-info "Google Gemini CLI installed"
+if npm list -g @google/gemini-cli --depth=0 &>/dev/null; then
+    warn "Google Gemini CLI already installed, skipping"
+else
+    npm install -g @google/gemini-cli
+    info "Google Gemini CLI installed"
+fi
 
 step "Task Master AI"
-npm install -g task-master-ai
-info "Task Master AI installed"
+if npm list -g task-master-ai --depth=0 &>/dev/null; then
+    warn "Task Master AI already installed, skipping"
+else
+    npm install -g task-master-ai
+    info "Task Master AI installed"
+fi
 
 step "Claude Code UI"
-npm install -g https://github.com/siteboon/claudecodeui
-info "Claude Code UI installed"
+if npm list -g claudecodeui --depth=0 &>/dev/null; then
+    warn "Claude Code UI already installed, skipping"
+else
+    npm install -g https://github.com/siteboon/claudecodeui
+    info "Claude Code UI installed"
+fi
 
 echo ""
 echo -e "${GREEN}╔═══════════════════════════════════════╗${NC}"

@@ -52,4 +52,35 @@ else
     warn "GitHub CLI already installed, skipping"
 fi
 
+step "Installing Docker"
+if ! command -v docker &>/dev/null; then
+    $SUDO apt-get install -y ca-certificates curl
+    $SUDO install -m 0755 -d /etc/apt/keyrings
+    $SUDO curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
+        -o /etc/apt/keyrings/docker.asc
+    $SUDO chmod a+r /etc/apt/keyrings/docker.asc
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] \
+https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" \
+        | $SUDO tee /etc/apt/sources.list.d/docker.list >/dev/null
+    $SUDO apt-get update -y
+    $SUDO apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    $SUDO usermod -aG docker "$USER"
+    info "Docker installed (re-login required for group membership)"
+else
+    warn "Docker already installed, skipping"
+fi
+
+step "Installing docker-compose (standalone)"
+if ! command -v docker-compose &>/dev/null; then
+    COMPOSE_VERSION=$(curl -s "https://api.github.com/repos/docker/compose/releases/latest" \
+        | grep -Po '"tag_name": "v\K[^"]*')
+    $SUDO curl -SL \
+        "https://github.com/docker/compose/releases/download/v${COMPOSE_VERSION}/docker-compose-linux-$(uname -m)" \
+        -o /usr/local/bin/docker-compose
+    $SUDO chmod +x /usr/local/bin/docker-compose
+    info "docker-compose ${COMPOSE_VERSION} installed"
+else
+    warn "docker-compose already installed, skipping"
+fi
+
 info "All prerequisites installed. Run basic.sh next."
