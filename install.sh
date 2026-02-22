@@ -24,6 +24,54 @@ mkdir -p "$HOME/opt"
 mkdir -p "$HOME/Projects"
 info "Directories ready"
 
+# ── Oh My Zsh ────────────────────────────────────────────────────────────────
+step "Oh My Zsh"
+if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+    # KEEP_ZSHRC=yes: don't overwrite existing .zshrc
+    # RUNZSH=no: don't start zsh after install
+    # CHSH=no: don't change default shell automatically
+    RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
+        sh -c "$(wget -O- https://install.ohmyz.sh/)"
+    info "Oh My Zsh installed"
+else
+    warn "Oh My Zsh already installed, skipping"
+fi
+
+# chivier theme
+step "Chivier zsh theme"
+mkdir -p "$HOME/.oh-my-zsh/custom/themes"
+cp "$QINDIR/chivier.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/chivier.zsh-theme"
+info "Chivier theme installed"
+
+# zenplash plugin
+step "Zenplash plugin"
+mkdir -p "$HOME/.oh-my-zsh/custom/plugins"
+rm -rf "$HOME/.oh-my-zsh/custom/plugins/zenplash"
+git clone https://github.com/Chivier/zenplash.git \
+    "$HOME/.oh-my-zsh/custom/plugins/zenplash"
+info "Zenplash plugin installed"
+
+# ── Zinit ────────────────────────────────────────────────────────────────────
+step "Zinit plugin manager"
+ZINIT_HOME="${HOME}/.local/share/zinit/zinit.git"
+if [[ ! -d "$ZINIT_HOME" ]]; then
+    mkdir -p "$(dirname "$ZINIT_HOME")"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+    info "Zinit installed"
+else
+    warn "Zinit already installed, skipping"
+fi
+
+# ── zshrc ────────────────────────────────────────────────────────────────────
+step "Zsh configuration"
+if [[ ! -e "$HOME/.zshrc" ]]; then
+    cp "$QINDIR/zshrc" "$HOME/.zshrc"
+    info "zshrc installed"
+else
+    warn "~/.zshrc already exists — skipping automatic install"
+    echo "  To reinstall: cp $QINDIR/zshrc ~/.zshrc"
+fi
+
 # ── Rust ─────────────────────────────────────────────────────────────────────
 step "Rust (rustup)"
 if [[ ! -d "$HOME/.cargo" ]]; then
@@ -94,54 +142,6 @@ if [[ ! -d "$HOME/.tmux" ]]; then
     info "tmux config installed"
 else
     warn "tmux config already installed, skipping"
-fi
-
-# ── Oh My Zsh ────────────────────────────────────────────────────────────────
-step "Oh My Zsh"
-if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
-    # KEEP_ZSHRC=yes: don't overwrite existing .zshrc
-    # RUNZSH=no: don't start zsh after install
-    # CHSH=no: don't change default shell automatically
-    RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
-        sh -c "$(wget -O- https://install.ohmyz.sh/)"
-    info "Oh My Zsh installed"
-else
-    warn "Oh My Zsh already installed, skipping"
-fi
-
-# chivier theme
-step "Chivier zsh theme"
-mkdir -p "$HOME/.oh-my-zsh/custom/themes"
-cp "$QINDIR/chivier.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/chivier.zsh-theme"
-info "Chivier theme installed"
-
-# zenplash plugin
-step "Zenplash plugin"
-mkdir -p "$HOME/.oh-my-zsh/custom/plugins"
-rm -rf "$HOME/.oh-my-zsh/custom/plugins/zenplash"
-git clone https://github.com/Chivier/zenplash.git \
-    "$HOME/.oh-my-zsh/custom/plugins/zenplash"
-info "Zenplash plugin installed"
-
-# ── Zinit ────────────────────────────────────────────────────────────────────
-step "Zinit plugin manager"
-ZINIT_HOME="${HOME}/.local/share/zinit/zinit.git"
-if [[ ! -d "$ZINIT_HOME" ]]; then
-    mkdir -p "$(dirname "$ZINIT_HOME")"
-    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
-    info "Zinit installed"
-else
-    warn "Zinit already installed, skipping"
-fi
-
-# ── zshrc ────────────────────────────────────────────────────────────────────
-step "Zsh configuration"
-if [[ ! -e "$HOME/.zshrc" ]]; then
-    cp "$QINDIR/zshrc" "$HOME/.zshrc"
-    info "zshrc installed"
-else
-    warn "~/.zshrc already exists — skipping automatic install"
-    echo "  To reinstall: cp $QINDIR/zshrc ~/.zshrc"
 fi
 
 # ── fzf ──────────────────────────────────────────────────────────────────────
