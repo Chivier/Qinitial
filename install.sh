@@ -24,13 +24,13 @@ mkdir -p "$HOME/opt"
 mkdir -p "$HOME/Projects"
 info "Directories ready"
 
-# ── Pyenv ────────────────────────────────────────────────────────────────────
-step "Pyenv"
-if [[ ! -d "$HOME/.pyenv" ]]; then
-    curl https://pyenv.run | bash
-    info "Pyenv installed"
+# ── Rust ─────────────────────────────────────────────────────────────────────
+step "Rust (rustup)"
+if [[ ! -d "$HOME/.cargo" ]]; then
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+    info "Rust installed"
 else
-    warn "Pyenv already installed, skipping"
+    warn "Rust already installed, skipping"
 fi
 
 # ── uv ───────────────────────────────────────────────────────────────────────
@@ -217,6 +217,11 @@ nvm install --lts
 nvm use --lts
 info "Node.js LTS installed: $(node --version)"
 
+# ── Claude Code ──────────────────────────────────────────────────────────────
+step "Claude Code"
+curl -fsSL https://claude.ai/install.sh | bash
+info "Claude Code installed"
+
 # ── NPM Global Packages ──────────────────────────────────────────────────────
 step "OpenAI Codex CLI"
 npm install -g @openai/codex
@@ -233,11 +238,6 @@ info "Task Master AI installed"
 step "Claude Code UI"
 npm install -g https://github.com/siteboon/claudecodeui
 info "Claude Code UI installed"
-
-# ── Claude Code ──────────────────────────────────────────────────────────────
-step "Claude Code"
-curl -fsSL https://claude.ai/install.sh | bash
-info "Claude Code installed"
 
 echo ""
 echo -e "${GREEN}╔═══════════════════════════════════════╗${NC}"
