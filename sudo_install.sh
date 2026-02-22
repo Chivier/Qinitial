@@ -34,10 +34,7 @@ step "Installing extended tools"
 $SUDO apt-get install -y \
     fd-find bat \
     libssl-dev libbz2-dev libreadline-dev \
-    libsqlite3-dev liblzma-dev libffi-dev \
-    libgl1-mesa-glx libegl1-mesa libxrandr2 \
-    libxss1 libxcursor1 libxcomposite1 \
-    libasound2 libxi6 libxtst6
+    libsqlite3-dev liblzma-dev libffi-dev
 
 step "Installing GitHub CLI"
 if ! command -v gh &>/dev/null; then
